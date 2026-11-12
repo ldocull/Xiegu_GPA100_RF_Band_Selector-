@@ -1,0 +1,22 @@
+Reference,Qty,Value,DNP,Exclude from BOM,Exclude from Board,Footprint,Datasheet,MPN
+C1,1,10nF,,,,Capacitor_SMD:C_0805_2012Metric,~,C0805C103K1RAC7411
+"C2,C3,C4,C5,C8,C9,C11,C12",8,100nF,,,,Capacitor_SMD:C_0805_2012Metric,~,0805B104M101CT
+"C6,C7,C10",3,10uF 25V,,,,Capacitor_SMD:CP_Elec_4x5.8,~,EEE-FN1E100R
+"D1,D2",2,1N4148W,,,,Diode_SMD:Nexperia_CFP3_SOD-123W,https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf,1N4148W_R2_00001
+D3,1,1N4001W-T,,,,Diode_SMD:D_SOD-123,http://www.vishay.com/docs/88503/1n4001.pdf,1N4001W-T
+D4,1,SS1FN6-M3/H,,,,Diode_SMD:D_SMF,~,SS1FN6-M3/H
+"H1,H2,H3,H4,H5,H6",6,MountingHole,,,,MountingHole:MountingHole_3.2mm_M3_ISO7380_Pad,~,
+"J1,J2",2,BNCPTH,,,,Connector_Coaxial:BNC_Amphenol_B6252HB-NPP3G-50_Horizontal,http://drawings.amphenolrf.com/Customer_Outline/C031-5431.pdf,031-5431
+J3,1,DCIN 2 X 5.5,,,,Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal,~,PJ-102AH
+J4,1,Conn_01x06_Socket,,,,Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical,~,
+Q1,1,XP261N7002TR-G,,,,Package_TO_SOT_SMD:SOT-23,https://toshiba.semicon-storage.com/info/docget.jsp?did=29712&prodName=T2N7002AK,XP261N7002TR-G
+R1,1,1K 2W,,,,Resistor_SMD:R_2512_6332Metric_Pad1.40x3.35mm_HandSolder,~,652-CRS2512QJW-102E
+"R2,R3,R7",3,10K,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~,
+R4,1,51 1W,,,,Resistor_SMD:R_2512_6332Metric_Pad1.40x3.35mm_HandSolder,~,652-CR2512AJW-510EAS
+"R5,R8,R9",3,33,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~,
+R6,1,39K,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~,
+U1,1,74LVC1G14,,,,Package_TO_SOT_SMD:SOT-353_SC-70-5_Handsoldering,https://www.ti.com/lit/sg/scyt129e/scyt129e.pdf,621-74LVC1G14QSE-7
+U2,1,MC74VHC74DR2G,,,,Package_SO:SOIC-14_3.9x8.7mm_P1.27mm,74xx/74hc_hct74.pdf,MC74VHC74DR2G
+U3,1,R-78E5.0-0.5,,,,Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT,https://www.recom-power.com/pdf/Innoline/R-78Exx-0.5.pdf,R-78E5.0-0.5
+U4,1,STM32F103-BluePill,,,,WR9R_SDX:YAAJ_BluePill_SWD_2,,
+U5,1,MCP6001UT-I/OT,,,,Package_TO_SOT_SMD:SOT-23-5_HandSoldering,https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf,MCP6001UT-I/OT
