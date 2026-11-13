@@ -8,10 +8,10 @@ RF Sensing Interface for GPA100 HF Amplifier
 
 This device allows nearly any transceiver to work with the GPA100.
 1-20W of RF input from 1.8-54Mhz.
-The assertion of PTT (LOW) samples the RF and sets the output key-voltage (BAND) to the amp to select the band.
+At the assertion of PTT (LOW) by the transceiver, the interface samples the RF and sets the output key-voltage (BAND) to the amp to select the band.
 PTT-out (KEY) to the amp is then asserted within 20ms of validated RF present.
 
-So FX4CR, KX3, and other non ICOM and Xiegu rigs can work.
+So the FX4CR, KX3, and other non-ICOM and non-Xiegu rigs can now work with the GPA100 directly controlling the band selection.
 
 73
 WR9R
