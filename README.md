@@ -7,7 +7,7 @@ RF Sensing Interface for GPA100 HF Amplifier
 
 
 This device allows nearly any transceiver to work with the GPA100.
-1-20W of RF input from 1.6 to 56Mhz.
+1-20W of RF input from 1.8-54Mhz.
 The assertion of PTT (LOW) samples the RF and sets the output key-voltage (BAND) to the amp to select the band.
 PTT-OUT to the amp is then asserted within 20ms of validated RF present.
 
