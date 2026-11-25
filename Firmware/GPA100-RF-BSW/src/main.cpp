@@ -9,7 +9,7 @@
 ### Key Architectural Changes for SSB
 
 * **Silence-Tolerant Gating (Voice Pause Handling)**
-  In your original code, an `else { consecutiveMatches = 0; }` block wiped your sample progress whenever a 4 ms sample window detected zero RF. In SSB mode, pauses between syllables or before you begin speaking produce zero RF. The updated code ignores windows where `samplePWM == 0`, preserving `validSampleCount` and `anchorFreqHz` across speech gaps until 10 valid vocal syllables accumulate.
+  In the original code, an `else { consecutiveMatches = 0; }` block wiped your sample progress whenever a 4 ms sample window detected zero RF. In SSB mode, pauses between syllables or before you begin speaking produce zero RF. The updated code ignores windows where `samplePWM == 0`, preserving `validSampleCount` and `anchorFreqHz` across speech gaps until 10 valid vocal syllables accumulate.
 * **True 5 kHz Frequency Window Comparison**
   The original code compared PWM duty cycle values (`samplePWM` vs. `anchor`) with a 2% tolerance. Because PWM steps are fixed integers per band, that logic checked band identity rather than actual RF stability. The new logic compares `measuredHz` directly against `anchorFreqHz` using `FREQ_TOLERANCE_HZ = 5000` (5 kHz).
 * **Fast-Path Same-Band Lock (`FAST_CONFIRM_SAMPLES = 3`)**
@@ -34,9 +34,17 @@ const int OB_LED        = PC13; // Onboard Diagnostic LED
 const uint32_t PRESCALER_DIV = 4; // Your physical divide-by-4 flip-flop
 
 // SSB Frequency Validation Constants
-const int REQUIRED_SAMPLES      = 10;     // Need 10 valid RF bursts within tolerance
-const int FAST_CONFIRM_SAMPLES  = 3;      // Fast-path lock if band hasn't changed
-const uint32_t FREQ_TOLERANCE_HZ = 15000;  // 5 kHz tolerance window (Opened to 15K for 6M performance)
+// const int REQUIRED_SAMPLES      = 10;     // Need 10 valid RF bursts within tolerance
+// const int FAST_CONFIRM_SAMPLES  = 3;      // Fast-path lock if band hasn't changed
+// const uint32_t FREQ_TOLERANCE_HZ = 15000;  // 5 kHz tolerance window (Opened to 15K for 6M performance)
+// const int SETTLING_TIME_MS      = 10;     // Relay settling time in milliseconds
+// ---- UPDATED TIMING CONSTANTS ----
+const int REQUIRED_SAMPLES      = 5;     // 5 valid bursts (10ms total RF) for new band
+const int FAST_CONFIRM_SAMPLES  = 2;     // 2 valid bursts (4ms total RF) for same band (~12ms total key time!)
+const uint32_t FREQ_TOLERANCE_HZ = 15000; // 15 kHz tolerance window
+const int SETTLING_TIME_MS      = 8;     // Reduced from 10ms
+const uint32_t SAMPLE_WINDOW_US = 2000;  // 2ms counting window (was 4000us)
+const int AMP_RELAY_DELAY_MS    = 15;    // Relay settling delay on band change (was 20ms)
 
 // EEPROM Configurations
 const int EEPROM_START_ADDR   = 0;
@@ -179,7 +187,7 @@ void loop() {
   // ---- CORE SSB-COMPATIBLE FREQUENCY ENGINE ----
   if (currentPttState && !sequenceComplete) {
     // Wait 10ms after PTT assertion to allow transceiver relays to settle
-    if (currentMillis - pttAssertTime >= 10) {
+    if (currentMillis - pttAssertTime >= SETTLING_TIME_MS) {
       uint32_t elapsedWindow = currentMicros - lastSampleTime;
 
       if (elapsedWindow >= 4000) {
@@ -226,7 +234,7 @@ void loop() {
                   if (targetPWM != latchedPwmDuty) {
                     setAnalogVoltageRegister(targetPWM);
                     latchedPwmDuty = targetPWM;
-                    delay(20); // 20ms settling delay for GPA-100 band relay switching
+                    delay(AMP_RELAY_DELAY_MS); // ms settling delay for GPA-100 band relay switching
                   } else {
                     setAnalogVoltageRegister(latchedPwmDuty);
                   }
